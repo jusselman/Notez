@@ -14,7 +14,7 @@ function Task(props) {
             <div className="task">
                 <h1>{props.title}</h1>
                 <p>{props.content}</p>
-                <button onClick={handleChange}>
+                <button className="task-delete" onClick={handleChange}>
                     <DeleteIcon />
                 </button>
             </div>

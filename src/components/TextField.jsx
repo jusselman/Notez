@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import AddIcon from '@material-ui/icons/Add';
+import Zoom from "@material-ui/core/Zoom";
+import Fab from "@material-ui/core/Fab";
 
 function TextField(props) {
+
+    const [expanded, makeExpanded] = useState(false);
 
     const [task, makeTask] = useState({
         title: "",
@@ -27,23 +32,35 @@ function TextField(props) {
         e.preventDefault();
     }
 
+    function expand() {
+        makeExpanded(true);
+    }
+
     return (
-        <div>
-            <form>
-                <input
-                    name="title"
-                    value={task.title}
-                    placeholder="Task"
-                    onChange={handleChange}
-                />
+        <div className="task-area">
+            <form className="make-task">
+                {expanded && (
+                    <input
+                        name="title"
+                        value={task.title}
+                        placeholder="Task"
+                        onChange={handleChange}
+                    />
+                )}
+
                 <textarea
                     name="content"
+                    onClick={expand}
                     value={task.content}
                     placeholder="Description"
-                    rows="4"
+                    rows={expanded ? 4 : 1}
                     onChange={handleChange}
                 />
-                <button onClick={submitTask}>Done</button>
+                <Zoom in={expanded}>
+                    <Fab onClick={submitTask}>
+                        <AddIcon />
+                    </Fab>
+                </Zoom>
             </form>
         </div>
     );
